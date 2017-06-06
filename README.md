@@ -10,13 +10,13 @@ Execution Steps:
 $ go get gopkg.in/mgo.v2
 $ go get gopkg.in/mgo.v2/bson
 
-2) Build the script
+2) Build the script:
 $ go build
 
-4) Run the script
+3) Run the script:
 $ mongo_http
 
-5)Test the REST endpoints in REST client like Postman
+4) Test the REST endpoints in REST client like Postman
 Create a new Product
 Method: POST
 URL: http://localhost:8080/product
