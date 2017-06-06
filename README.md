@@ -1,9 +1,25 @@
 # mongo_http
 GoLang Mongo DB REST API's
 
-Test REST endpoints in REST client like Postman
+mgo is a rich mongo driver for Go. 
+http://labix.org/mgo
+
+Execution Steps:
+
+1) Setup mgo in local Go:
+$ go get gopkg.in/mgo.v2
+$ go get gopkg.in/mgo.v2/bson
+
+2) Build the script
+$ go build
+
+4) Run the script
+$ mongo_http
+
+5)Test the REST endpoints in REST client like Postman
 Create a new Product
-POST http://localhost:8080/product
+Method: POST
+URL: http://localhost:8080/product
 {
     "id":    "100",
     "name":   "Amazon Echo",
@@ -13,10 +29,13 @@ POST http://localhost:8080/product
 }
 
 Get All products
-GET http://localhost:8080/products
+Method: GET
+URL: http://localhost:8080/products
 
 Get Product By Id
-GET http://localhost:8080/product/100
+Method: GET
+URL: http://localhost:8080/product/100
 
 Delete the Product
-DELETE http://localhost:8080/product/100
+Method: DELETE
+URL: http://localhost:8080/product/100
