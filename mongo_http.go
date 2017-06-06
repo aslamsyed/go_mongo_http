@@ -16,9 +16,6 @@ var(
   collection = "products"
 )
 
-
-
-
 type Product struct {
     Id      string `json:"id"`
     Name    string   `json:"name"`
@@ -45,14 +42,11 @@ func main() {
         panic(err)
     }
     defer session.Close()
-
     session.SetMode(mgo.Monotonic, true)
-
     mux := goji.NewMux()
     mux.HandleFunc(pat.Get("/products"), getAllProducts(session))
     mux.HandleFunc(pat.Post("/product"), createProduct(session))
     mux.HandleFunc(pat.Get("/product/:id"), productById(session))
-  //  mux.HandleFunc(pat.Put("/books/:isbn"), updateBook(session))
     mux.HandleFunc(pat.Delete("/product/:id"), deleteProduct(session))
     http.ListenAndServe("localhost:8080", mux)
 }
@@ -61,9 +55,7 @@ func getAllProducts(s *mgo.Session) func(w http.ResponseWriter, r *http.Request)
     return func(w http.ResponseWriter, r *http.Request) {
         session := s.Copy()
         defer session.Close()
-
         c := session.DB(db).C(collection)
-
         var products []Product
         err := c.Find(bson.M{}).All(&products)
         if err != nil {
@@ -71,12 +63,10 @@ func getAllProducts(s *mgo.Session) func(w http.ResponseWriter, r *http.Request)
             log.Println("Failed get all books: ", err)
             return
         }
-
         respBody, err := json.MarshalIndent(products, "", "  ")
         if err != nil {
             log.Fatal(err)
         }
-
         JSONResponseHandler(w, respBody, http.StatusOK)
     }
 }
@@ -159,42 +149,3 @@ func deleteProduct(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) 
         w.WriteHeader(http.StatusNoContent)
     }
 }
-
-
-/*
-func updateBook(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {
-    return func(w http.ResponseWriter, r *http.Request) {
-        session := s.Copy()
-        defer session.Close()
-
-        isbn := pat.Param(r, "isbn")
-
-        var book Book
-        decoder := json.NewDecoder(r.Body)
-        err := decoder.Decode(&book)
-        if err != nil {
-            ErrorWithJSON(w, "Incorrect body", http.StatusBadRequest)
-            return
-        }
-
-        c := session.DB("store").C("books")
-
-        err = c.Update(bson.M{"isbn": isbn}, &book)
-        if err != nil {
-            switch err {
-            default:
-                ErrorWithJSON(w, "Database error", http.StatusInternalServerError)
-                log.Println("Failed update book: ", err)
-                return
-            case mgo.ErrNotFound:
-                ErrorWithJSON(w, "Book not found", http.StatusNotFound)
-                return
-            }
-        }
-
-        w.WriteHeader(http.StatusNoContent)
-    }
-}
-
-
-*/
