@@ -1,5 +1,5 @@
 # mongo_http
-GoLang Mongo DB REST API's
+Micro service using Mongo DB in GoLang
 
 mgo is a rich mongo driver for Go. 
 http://labix.org/mgo
@@ -16,10 +16,12 @@ $ go build
 3) Run the script:
 $ mongo_http
 
-4) Test the REST endpoints in REST client like Postman
-Create a new Product
-Method: POST
+4) REST endpoints:
+
+Create a new Product,
+Method: POST,
 URL: http://localhost:8080/product
+
 {
     "id":    "100",
     "name":   "Amazon Echo",
@@ -28,14 +30,14 @@ URL: http://localhost:8080/product
     "price": "$299.99"
 }
 
-Get All products
-Method: GET
+Get All products,
+Method: GET,
 URL: http://localhost:8080/products
 
-Get Product By Id
-Method: GET
+Get Product By Id,
+Method: GET,
 URL: http://localhost:8080/product/100
 
-Delete the Product
-Method: DELETE
+Delete the Product,
+Method: DELETE,
 URL: http://localhost:8080/product/100
