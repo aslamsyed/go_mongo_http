@@ -1,4 +1,4 @@
-# mongo_http
+# go_mongo_http
 Micro service using Mongo DB in GoLang
 
 mgo is a rich mongo driver for Go. 
